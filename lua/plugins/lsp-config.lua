@@ -12,7 +12,7 @@ return {
         config = function()
             -- ensure that we have lua language server, typescript launguage server, java language server, and java test language server are installed
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "tsserver", "jdtls" },
+                ensure_installed = { "lua_ls", "ts_ls", "jdtls" },
             })
         end
     },
@@ -47,7 +47,7 @@ return {
             })
 
             -- setup the typescript language server
-            lspconfig.tsserver.setup({
+            lspconfig.ts_ls.setup({
                 capabilities = capabilities,
             })
 
@@ -65,6 +65,32 @@ return {
             vim.keymap.set("n", "<leader>cR", vim.lsp.buf.rename, { desc = "[C]ode [R]ename" })
             -- Set a vim motion for <Space> + c + <Shift>D to go to where the code/object was declared in the project (class file)
             vim.keymap.set("n", "<leader>cD", vim.lsp.buf.declaration, { desc = "[C]ode Goto [D]eclaration" })
+            
+            -- 🚀 Custom LSP restart commands
+            vim.api.nvim_create_user_command("LspRestartAll", function()
+                for _, client in pairs(vim.lsp.get_active_clients()) do
+                    client.stop()
+                end
+                vim.defer_fn(function()
+                    vim.cmd("edit")
+                    vim.notify("🔁 LSP Restarted", vim.log.levels.INFO)
+                end, 200)
+            end, { desc = "Restart all active LSP clients" })
+
+            vim.api.nvim_create_user_command("JdtRestart", function()
+                for _, client in pairs(vim.lsp.get_active_clients()) do
+                    if client.name == "jdtls" then
+                        client.stop()
+                    end
+                end
+                vim.defer_fn(function()
+                    vim.cmd("edit")
+                    vim.notify("☕ JDTLS Restarted", vim.log.levels.INFO)
+                end, 200)
+            end, { desc = "Restart Java LSP (JDTLS)" })
+
+            vim.keymap.set("n", "<leader>lr", ":LspRestartAll<CR>", { desc = "[L]SP [R]estart All" })
+            vim.keymap.set("n", "<leader>jR", ":JdtRestart<CR>", { desc = "[J]ava LSP [R]estart" })
         end
     }
 }

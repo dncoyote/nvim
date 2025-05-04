@@ -28,3 +28,33 @@ vim.keymap.set("n", "<leader>wh", ":split<cr>", { desc = "[W]indow Split [H]oriz
 -- Stay in indent mode
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left in visual mode" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right in visual mode" })
+
+vim.api.nvim_create_user_command("JavaQuickRun", function()
+  require("config.java-utils").run_current_java_file()
+end, { desc = "Run current Java file" })
+
+vim.keymap.set("n", "<leader>jr", ":JavaQuickRun<CR>", { desc = "[J]ava [R]un file" })
+-- vim.keymap.set("n", "<leader>jr", function()
+--   -- Stop all LSP clients (safe for single-file or Java-only sessions)
+--   for _, client in pairs(vim.lsp.get_active_clients()) do
+--     client.stop()
+--   end
+--
+--   -- Reload current buffer to trigger LSP reattach
+--   vim.cmd("edit")
+-- end, { desc = "[J]ava LSP [R]estart and Reload" })
+--
+-- vim.keymap.set("n", "<leader>jr", function()
+--   -- Stop Java-related LSPs
+--   for _, client in pairs(vim.lsp.get_active_clients()) do
+--     if client.name == "jdtls" then
+--       client.stop()
+--     end
+--   end
+--
+--   -- Reopen the file *after* a short delay to allow LSP to reinitialize
+--   vim.defer_fn(function()
+--     vim.cmd("edit")
+--   end, 200)  -- delay in milliseconds
+-- end, { desc = "[J]ava LSP [R]estart and Reload" })
+--

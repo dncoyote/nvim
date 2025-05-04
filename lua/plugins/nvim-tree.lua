@@ -5,6 +5,14 @@ return {
         require("nvim-tree").setup({
             hijack_netrw = true,
             auto_reload_on_write = true,
+            filters = {
+                dotfiles = false, -- ← this shows .env, .gitignore, etc.
+                custom = {},
+            },
+            git = {
+                enable = true,
+                ignore = false,
+            },
         })
     end
 }
