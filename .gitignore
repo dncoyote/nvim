@@ -1,0 +1,19 @@
+# Swap and backup files
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Plugin data (you can reinstall plugins)
+lazy-lock.json
+site/
+pack/
+
+# LSP logs or other temp files
+.log
+log/
+*.log
+
+# Local override configs (if any)
+lua/custom/
+
