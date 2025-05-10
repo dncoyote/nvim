@@ -33,6 +33,18 @@ vim.api.nvim_create_user_command("JavaQuickRun", function()
   require("config.java-utils").run_current_java_file()
 end, { desc = "Run current Java file" })
 
+-- Buffer management
+vim.keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "[B]uffer [N]ext" })
+vim.keymap.set("n", "<leader>bp", ":bprevious<CR>", { desc = "[B]uffer [P]revious" })
+vim.keymap.set("n", "<leader>bd", ":bd<CR>", { desc = "[B]uffer [D]elete" })
+
+-- bufferline
+vim.keymap.set("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "Next buffer (tab-style)" })
+vim.keymap.set("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Previous buffer (tab-style)" })
+vim.keymap.set("n", "<leader>bc", "<cmd>bdelete<CR>", { desc = "[B]uffer [C]lose current" })
+
+
+
 vim.keymap.set("n", "<leader>jr", ":JavaQuickRun<CR>", { desc = "[J]ava [R]un file" })
 -- vim.keymap.set("n", "<leader>jr", function()
 --   -- Stop all LSP clients (safe for single-file or Java-only sessions)
