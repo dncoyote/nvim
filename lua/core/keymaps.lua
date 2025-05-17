@@ -126,6 +126,11 @@ keymap.set("n", '<leader>tm', function()
   end
 end)
 
+-- ╭─ Bufferline navigation ─────────────────────────────────────────────────────╮
+-- Previous / Next buffer
+keymap.set("n", "<leader>bp", "<Cmd>BufferLineCyclePrev<CR>",   { desc = "󰒄 Prev buffer" })
+keymap.set("n", "<leader>bn", "<Cmd>BufferLineCycleNext<CR>",   { desc = "󰒅 Next buffer" })
+
 -- Debugging
 keymap.set("n", "<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
 keymap.set("n", "<leader>bc", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>")
