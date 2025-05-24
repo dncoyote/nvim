@@ -7,6 +7,9 @@ return {
     'nvim-tree/nvim-web-devicons', -- Fancy icon support
   },
   opts = {
+    filters = {
+      custom = { ".class"}
+    },
     actions = {
       open_file = {
         window_picker = {
