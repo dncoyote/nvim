@@ -130,7 +130,8 @@ end)
 -- Previous / Next buffer
 keymap.set("n", "<leader>bn", "<Cmd>BufferLineCyclePrev<CR>",   { desc = "󰒄 Prev buffer" })
 keymap.set("n", "<leader>bm", "<Cmd>BufferLineCycleNext<CR>",   { desc = "󰒅 Next buffer" })
-keymap.set("n", "<leader>bx", "<Cmd>bd<CR>",   { desc = "󰒅 Next buffer" })
+keymap.set("n", "<leader>bx", "<Cmd>BufferLineClose<CR>", { desc = "Close current buffer (BufferLine)" })
+--keymap.set("n", "<leader>bx", "<Cmd>bd<CR>",   { desc = "󰒅 Next buffer" })
 
 -- Debugging
 keymap.set("n", "<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")

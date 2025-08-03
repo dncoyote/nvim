@@ -17,6 +17,7 @@ return {
     ensure_installed = {
       'lua',
       'comment',
+      'latex',
     },
   },
   config = function (_, opts)
