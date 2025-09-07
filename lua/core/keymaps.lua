@@ -153,3 +153,17 @@ keymap.set("n", '<leader>df', '<cmd>Telescope dap frames<cr>')
 keymap.set("n", '<leader>dh', '<cmd>Telescope dap commands<cr>')
 keymap.set("n", '<leader>de', function() require('telescope.builtin').diagnostics({default_text=":E:"}) end)
 
+
+-- Vim-Wiki
+local map = vim.keymap.set
+map("n", "<leader>nb", function()
+  local title = vim.fn.input("Book title: ")
+  if title == "" then return end
+  local filename = title:gsub("%s+", "-") .. ".md"
+  local p = os.getenv("HOME") .. "/Notes/wiki/books/" .. filename
+  vim.cmd("edit " .. p)
+  if vim.fn.line("$") == 1 and vim.fn.getline(1) == "" then
+    vim.cmd("0read " .. os.getenv("HOME") .. "/Notes/wiki/templates/book.tpl")
+    vim.cmd("normal! gg")
+  end
+end, { desc = "New Book Note (book.tpl)" })
