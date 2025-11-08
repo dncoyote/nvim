@@ -40,6 +40,9 @@ return {
         'marksman',
         'quick_lint_js',
         'yamlls',
+        -- >>> RUST: install rust-analyzer via Mason (LSP server)
+        -- rustaceanvim will actually configure it, so we just ensure it's present.
+        'rust_analyzer',
       }
     })
 
@@ -48,6 +51,8 @@ return {
       ensure_installed = {
         'java-debug-adapter',
         'java-test',
+        -- >>> RUST: ensure codelldb (DAP) is installed for debugging Rust
+        'codelldb',
       },
     })
 
@@ -64,13 +69,16 @@ return {
     -- Call setup on each LSP server
     require('mason-lspconfig').setup_handlers({
       function(server_name)
-        -- Don't call setup for JDTLS Java LSP because it will be setup from a separate config
-        if server_name ~= 'jdtls' then
-          lspconfig[server_name].setup({
-            on_attach = lsp_attach,
-            capabilities = lsp_capabilities,
-          })
-        end
+        -- Java is configured elsewhere
+        if server_name == 'jdtls' then return end
+
+        -- >>> RUST: rustaceanvim will configure rust-analyzer; skip here
+        if server_name == 'rust_analyzer' then return end
+
+        lspconfig[server_name].setup({
+          on_attach = lsp_attach,
+          capabilities = lsp_capabilities,
+        })
       end
     })
 

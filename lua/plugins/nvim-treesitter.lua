@@ -18,6 +18,9 @@ return {
       'lua',
       'comment',
       'latex',
+      -- >>> RUST: syntax + Cargo files
+      'rust',
+      'toml',
     },
   },
   config = function (_, opts)

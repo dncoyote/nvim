@@ -167,3 +167,26 @@ map("n", "<leader>nb", function()
     vim.cmd("normal! gg")
   end
 end, { desc = "New Book Note (book.tpl)" })
+
+
+-- ── Rust-specific keymaps (buffer-local, no conflicts with Java) ─────────────
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "rust",
+  callback = function(args)
+    local buf = args.buf
+    local map = function(lhs, rhs, desc)
+      vim.keymap.set("n", lhs, rhs, { buffer = buf, desc = desc })
+    end
+
+    -- Use Cargo-prefixed leader keys to avoid clashing with your <leader>rr (rename)
+    map("<leader>cr", "<cmd>RustLsp runnables<cr>",   "Cargo: Runnables")
+    map("<leader>cd", "<cmd>RustLsp debuggables<cr>", "Cargo: Debuggables")
+
+    -- Prefer Rust hover actions on 'K' in Rust buffers (your global hover is <leader>gg)
+    map("K", "<cmd>RustLsp hover actions<cr>", "Rust Hover Actions")
+
+    -- Keep your global code-action (<leader>ga); no need to remap here.
+    -- If you want a Rust alias as well, uncomment:
+    -- map("<leader>ca", "<cmd>RustLsp codeAction<cr>", "Rust Code Action")
+  end,
+})
