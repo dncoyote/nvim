@@ -1,4 +1,4 @@
-#  Keymaps and Their Uses
+#  Keymap  and  Their Uses
 
 
 # Neovim Keymaps Cheat Sheet

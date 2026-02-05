@@ -121,6 +121,11 @@
 - **Purpose:** Navigate between Neovim splits and tmux panes.
 - **Loads only if inside tmux, no keymaps needed.**
 
+
+### flash 
+- **Purpose:**  surgical navigation plugin.
+- **Keymaps:**  
+  - `<leader>gs`: Toggle maximize
 ---
 
 ## Themes and Appearance
