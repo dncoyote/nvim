@@ -1,8 +1,8 @@
 return {
   "vimwiki/vimwiki",
-  event = "VeryLazy",
+  ft = { "vimwiki" }, -- load when vimwiki buffers open (NOT VeryLazy)
   init = function()
-    -- Main wiki now lives inside ~/Notes/wiki
+    -- Only globals here (safe before plugin loads)
     vim.g.vimwiki_list = { {
       path = os.getenv("HOME") .. "/Notes/wiki",
       syntax = "markdown",
@@ -20,16 +20,25 @@ return {
     vim.g.vimwiki_global_ext = 0
     vim.g.vimwiki_markdown_link_ext = 1
     vim.g.vimwiki_auto_header = 1
-    vim.opt_local.conceallevel = 2
-    vim.opt_local.wrap = true
-    vim.opt_local.linebreak = true
-    vim.opt_local.spell = true
-    vim.opt_local.spelllang = "en"
 
-    -- Ensure Enter/Backspace follow/go back in Vimwiki (without touching global maps)
-    vim.keymap.set("n", "<CR>", "<Plug>VimwikiFollowLink", { buffer = true, silent = true })
-    vim.keymap.set("n", "<BS>", "<Plug>VimwikiGoBackLink", { buffer = true, silent = true })
+    -- Buffer-local behavior must be applied per-buffer
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "vimwiki" },
+      callback = function(ev)
+        local opt = vim.opt_local
+        opt.conceallevel = 2
+        opt.wrap = true
+        opt.linebreak = true
+        opt.spell = true
+        opt.spelllang = "en"
 
-    require("core.markdown-keymaps").setup_bufmaps(0)
+        -- Vimwiki navigation (buffer-local)
+        vim.keymap.set("n", "<CR>", "<Plug>VimwikiFollowLink", { buffer = ev.buf, silent = true })
+        vim.keymap.set("n", "<BS>", "<Plug>VimwikiGoBackLink", { buffer = ev.buf, silent = true })
+
+        -- Your markdown helpers (buffer-local)
+        require("core.markdown-keymaps").setup_bufmaps(ev.buf)
+      end,
+    })
   end,
 }

@@ -119,7 +119,7 @@
 
 ### vim-tmux-navigator
 - **Purpose:** Navigate between Neovim splits and tmux panes.
-- **Loads only if inside tmux, no keymaps needed.
+- **Loads only if inside tmux, no keymaps needed.**
 
 ---
 

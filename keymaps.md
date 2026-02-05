@@ -90,6 +90,12 @@
 - `<leader>tr` — Document symbols
 - `<C-Space>` — Trigger completion (insert mode)
 
+## java-keymaps
+- `<leader>jr` — copy relative path for `javac` 
+- `<leader>jf` — copy FQN for `java`
+- `<leader>jc` — copy ready to paste - `javac path/to/File.java` 
+- `<leader>jx` — copy ready to paste - `java com.foo.Bar`
+
 ## Spring Boot Plugin
 - `<leader>Jr` — Run Spring Boot project
 - `<leader>Jc` — Generate class
