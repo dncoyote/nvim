@@ -43,6 +43,8 @@ return {
         -- >>> RUST: install rust-analyzer via Mason (LSP server)
         -- rustaceanvim will actually configure it, so we just ensure it's present.
         'rust_analyzer',
+        -- C/C++
+        'clangd',
       }
     })
 

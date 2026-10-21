@@ -21,6 +21,8 @@ return {
       -- >>> RUST: syntax + Cargo files
       'rust',
       'toml',
+      -- C Programming
+      'c',
     },
   },
   config = function (_, opts)
